@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>-</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        
+        *{
+            font-family: "Roboto";
+        }
+        
+        body{
+            
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        .main{
+            display: flex;
+            flex-direction: column; /* Arrange items vertically */
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* Take full height of body */
+        }
+        .question-text {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .gif {
+            width: 300px; /* Adjust size as needed */
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .buttons-container {
+            display: flex;
+            gap: 20px; /* Space between buttons */
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease; /* Smooth transitions for size changes */
+        }
+        #yesButton {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+        #noButton {
+            background-color: #f44336; /* Red */
+            color: white;
+        }
+        .final-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: #4CAF50;
+            text-align: center;
+        }
+        .final-gif {
+            width: 400px; /* Adjust size as needed */
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main" id="mainContainer">
+        <h1 class="question-text">Ahu benimle barışır mısın?</h1>
+        <img src="/images/please.gif" alt="Please" class="gif" id="pleaseGif">
+        <div class="buttons-container">
+            <button class="button" id="yesButton">Evet</button>
+            <button class="button" id="noButton">Hayır</button>
+        </div>
+    </div>
+
+    <script>
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const pleaseGif = document.getElementById('pleaseGif');
+        const mainContainer = document.getElementById('mainContainer');
+        const questionText = document.querySelector('.question-text');
+
+        let yesFontSize = 1.5; // initial font size for yes button
+        let noButtonScale = 1; // initial scale for no button
+
+        noButton.addEventListener('click', () => {
+            // Shrink no button
+            noButtonScale *= 0.8; // Reduce size by 20%
+            noButton.style.transform = `scale(${noButtonScale})`;
+            noButton.style.pointerEvents = 'none'; // Disable clicks during animation
+            setTimeout(() => {
+                noButton.style.pointerEvents = 'auto';
+            }, 300); // Re-enable after transition
+
+            // Grow yes button
+            yesFontSize *= 1.2; // Increase font size by 20%
+            yesButton.style.fontSize = `${yesFontSize}em`;
+        });
+
+        yesButton.addEventListener('click', () => {
+            // Clear existing content
+            mainContainer.innerHTML = '';
+
+            // Display final message and GIF
+            const finalMessageDiv = document.createElement('div');
+            finalMessageDiv.className = 'final-message';
+            finalMessageDiv.innerHTML = '<h1>Yeeeeey</h1><img src="images/cute.gif" alt="Cute" class="final-gif">';
+            mainContainer.appendChild(finalMessageDiv);
+        });
+    </script>
+</body>
+</html>
